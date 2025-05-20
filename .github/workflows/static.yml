@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEEJACP Metamorfose</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#006633', // Verde principal do logo
+                        secondary: '#0099cc', // Azul do logo
+                        accent: '#ff9900', // Laranja/amarelo do logo
+                        dark: '#333333',
+                        light: '#f8f9fa'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            overflow-x: hidden;
+        }
+        .menu-item {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .menu-item:hover {
+            border-left: 4px solid #006633;
+            background-color: rgba(0, 102, 51, 0.05);
+        }
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .submenu.active {
+            max-height: 2000px;
+        }
+        .back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+        }
+        .header-bg {
+            background: linear-gradient(135deg, #006633 0%, #0099cc 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .tech-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23006633' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #006633 0%, #0099cc 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 4px 12px rgba(0, 102, 51, 0.3);
+            transform: translateY(-2px);
+        }
+        .card {
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 102, 51, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 102, 51, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 102, 51, 0);
+            }
+        }
+    </style>
+</head>
+<body class="tech-pattern">
+    <div class="app-container max-w-md mx-auto bg-white min-h-screen shadow-xl relative overflow-hidden">
+        <!-- Header -->
+        <header class="header-bg text-white p-4 sticky top-0 z-10 shadow-md">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <button id="back-button" class="mr-2 hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <div>
+                        <h1 class="text-xl font-bold">NEEJACP</h1>
+                        <p class="text-xs font-light">Metamorfose</p>
+                    </div>
+                </div>
+                <button id="home-button" class="bg-white bg-opacity-20 p-2 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="p-4">
+            <!-- Welcome Message -->
+            <div id="welcome-message" class="mb-6 bg-gradient-to-r from-primary/10 to-secondary/10 p-5 rounded-xl border-l-4 border-primary shadow-sm">
+                <div class="flex items-start">
+                    <div class="mr-3 bg-primary rounded-full p-2 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <p class="text-dark">
+                        Olá! Sou assistente virtual do <span class="font-semibold">NEEJACP Metamorfose</span> de Bento Gonçalves. Acesse nosso MENU principal e fique informado sobre inscrições, provas, documentação etc.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Main Menu -->
+            <div id="main-menu">
+                <h2 class="text-lg font-semibold mb-4 text-primary flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    Menu Principal
+                </h2>
+                <div class="space-y-3">
+                    <div class="menu-item p-4 bg-white rounded-xl shadow-sm card" data-content="apresentacao">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="bg-primary/10 p-2 rounded-lg mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Apresentação do NEEJA</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item p-4 bg-white rounded-xl shadow-sm card" data-content="horario">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="bg-primary/10 p-2 rounded-lg mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Horário de atendimento</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item p-4 bg-white rounded-xl shadow-sm card" data-content="documentos">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="bg-primary/10 p-2 rounded-lg mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Documentos para inscrição</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item p-4 bg-white rounded-xl shadow-sm card" data-content="ficha">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="bg-primary/10 p-2 rounded-lg mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Ficha de Inscrição</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item p-4 bg-white rounded-xl shadow-sm card" data-content="apostilas">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="bg-primary/10 p-2 rounded-lg mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Apostilas para estudar</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item p-4 bg-white rounded-xl shadow-sm card" data-content="certificado">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="bg-primary/10 p-2 rounded-lg mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Certificado de Conclusão</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item p-4 bg-white rounded-xl shadow-sm card" data-content="calendario">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="bg-primary/10 p-2 rounded-lg mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Calendário de provas</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item p-4 bg-white rounded-xl shadow-sm card" data-content="localizacao">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="bg-primary/10 p-2 rounded-lg mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Localização</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item p-4 bg-white rounded-xl shadow-sm card" data-content="aprovados">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="bg-primary/10 p-2 rounded-lg mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Lista de aprovados</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item p-4 bg-white rounded-xl shadow-sm card" data-content="aulas">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <div class="bg-primary/10 p-2 rounded-lg mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Aulas tira dúvidas</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Sections (Hidden by Default) -->
+            <div id="content-sections" class="hidden">
+                <!-- 1. Apresentação do NEEJA -->
+                <div id="apresentacao" class="content-section hidden">
+                    <h2 class="text-xl font-bold mb-4 text-primary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Apresentação do NEEJA
+                    </h2>
+                    <div class="bg-white p-5 rounded-xl shadow-sm">
+                        <div class="mb-6 bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg mb-2 text-primary">Ingresso</h3>
+                            <ul class="list-disc pl-5 mb-4 space-y-2">
+                                <li>O ingresso ocorre de forma contínua conforme o cronograma interno;</li>
+                                <li>A idade mínima para o ensino médio é 18 anos completos e para o ensino fundamental é de 15 anos. Neste último caso, com a presença do responsável;</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-6 bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg mb-2 text-primary">Metodologia</h3>
+                            <ul class="list-disc pl-5 mb-4 space-y-2">
+                                <li>As provas objetivas serão aplicadas nas seguintes área de conhecimento: Ciências Humanas, Ciências da Natureza, Linguagens e Matemática;</li>
+                                <li>Na área das linguagens, além da prova objetiva, é acrescentada a produção textual (redação) sobre um tema a ser definido;</li>
+                                <li>É permitido o uso de calculadora para a realização das avaliações, sendo restrito a utilização de celular e relógios digitais</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-6 bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg mb-2 text-primary">Avaliação</h3>
+                            <ul class="list-disc pl-5 mb-4 space-y-2">
+                                <li>O estudante que obtiver 50% de aproveitamento será aprovado;</li>
+                                <li>O estudante que não atingir 50% de aproveitamento será reprovado.</li>
+                                <li>Neste último caso, será ofertada uma nova oportunidade, conforme o calendário instituído pelo NEEJA.</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="https://neejabento.wixsite.com/neeja/apresentacao" target="_blank" class="block mt-6 btn-primary text-white py-3 px-4 rounded-xl text-center shadow-md">
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                                Visitar site oficial do NEEJA
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 2. Horário de atendimento -->
+                <div id="horario" class="content-section hidden">
+                    <h2 class="text-xl font-bold mb-4 text-primary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Horário de atendimento
+                    </h2>
+                    <div class="bg-white p-5 rounded-xl shadow-sm">
+                        <div class="mb-6 bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-3 text-primary flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                Segunda-feira a quinta-feira:
+                            </h3>
+                            <div class="flex items-center ml-7 mb-2">
+                                <div class="w-3 h-3 bg-primary rounded-full mr-2"></div>
+                                <p>13:30h às 17:30h</p>
+                            </div>
+                            <div class="flex items-center ml-7">
+                                <div class="w-3 h-3 bg-primary rounded-full mr-2"></div>
+                                <p>18:30h às 21:30h</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
+                            <h3 class="font-semibold mb-3 text-primary flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                Sexta-feira:
+                            </h3>
+                            <div class="flex items-center ml-7 mb-2">
+                                <div class="w-3 h-3 bg-primary rounded-full mr-2"></div>
+                                <p>08:30h às 11:30h</p>
+                            </div>
+                            <div class="flex items-center ml-7">
+                                <div class="w-3 h-3 bg-primary rounded-full mr-2"></div>
+                                <p>13:30h às 17:30h</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3. Documentos para inscrição -->
+                <div id="documentos" class="content-section hidden">
+                    <h2 class="text-xl font-bold mb-4 text-primary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Documentos para inscrição
+                    </h2>
+                    <div class="bg-white p-5 rounded-xl shadow-sm">
+                        <div class="mb-5 bg-gradient-to-r from-secondary/10 to-primary/10 p-4 rounded-lg">
+                            <p class="mb-3 font-medium">Compareça presencialmente ao NEEJA e apresente os documentos descritos abaixo:</p>
+                        </div>
+                        
+                        <ul class="mb-6 space-y-3">
+                            <li class="flex items-start">
+                                <div class="bg-primary/10 p-1 rounded-full mr-2 mt-1">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                </div>
+                                <span>Ficha de inscrição impressa, preenchida e assinada.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-primary/10 p-1 rounded-full mr-2 mt-1">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                </div>
+                                <span>Certidão de nascimento ou casamento (original e cópia).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-primary/10 p-1 rounded-full mr-2 mt-1">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                </div>
+                                <span>Em caso de separação, trazer o xerox da averbação do divórcio que se encontra no verso da certidão de casamento.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-primary/10 p-1 rounded-full mr-2 mt-1">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                </div>
+                                <span>Carteira de Identidade e CPF (originais e cópias).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-primary/10 p-1 rounded-full mr-2 mt-1">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                </div>
+                                <span>Comprovante de endereço atualizado (original e cópia).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-primary/10 p-1 rounded-full mr-2 mt-1">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                </div>
+                                <span>Para alunos do ensino médio, solicita-se ainda o Certificado Original de conclusão do Ensino Fundamental (original e cópia). Idade mínima de 18 anos completos.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-primary/10 p-1 rounded-full mr-2 mt-1">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                </div>
+                                <span>Para alunos menores de idade, é necessário a carteira de Identidade e CPF (originais e cópias) dos responsáveis.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-primary/10 p-1 rounded-full mr-2 mt-1">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                </div>
+                                <span>Além disso, os alunos com 15 anos completos que desejam concluir o ensino fundamental, deverão trazer o atestado de escolaridade atualizado.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="bg-primary/10 p-1 rounded-full mr-2 mt-1">
+                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                                </div>
+                                <span>Alunos menores de idade deverão estar acompanhados OBRIGATORIAMENTE de seu responsável.</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="bg-accent/10 p-4 rounded-lg mb-6 border-l-4 border-accent">
+                            <h3 class="font-semibold mb-2 text-dark">Atenção:</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                    <span>A inscrição está condicionada a entrega da ficha de inscrição preenchida e todos os documentos solicitados acima.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                    <span>O não comparecimento, por qualquer natureza (motivo), o candidato deverá reinscrever-se para uma nova Etapa.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <a href="https://neejabento.wixsite.com/neeja" target="_blank" class="block mt-6 btn-primary text-white py-3 px-4 rounded-xl text-center shadow-md">
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                                Mais informações no site oficial
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 4. Ficha de Inscrição -->
+                <div id="ficha" class="content-section hidden">
+                    <h2 class="text-xl font-bold mb-4 text-primary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        Ficha de Inscrição
+                    </h2>
+                    <div class="bg-white p-5 rounded-xl shadow-sm">
+                        <div class="mb-6">
+                            <div class="bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg mb-6">
+                                <p class="mb-0">Para acessar a ficha de inscrição, clique no botão abaixo:</p>
+                            </div>
+                            
+                            <div class="bg-gray-100 p-6 rounded-lg mb-6 flex flex-col items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-primary mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                </svg>
+                                <p class="text-center text-gray-600 mb-2">Ficha de Inscrição</p>
+                                <p class="text-center text-gray-500 text-sm">Formato PDF</p>
+                            </div>
+                        </div>
+                        
+                        <a href="https://6434d0c8-e9a1-4570-839f-6d7e8197f146.filesusr.com/ugd/d42ae9_b8836f12708d4c4ab0d7949083019b01.pdf" target="_blank" class="block btn-primary text-white py-3 px-4 rounded-xl text-center shadow-md pulse">
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                Baixar Ficha de Inscrição (PDF)
+                            </div>
+                        </a>
+                        
+                        <p class="mt-4 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Imprima, preencha e leve junto com os demais documentos necessários para inscrição.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 5. Apostilas -->
+                <div id="apostilas" class="content-section hidden">
+                    <h2 class="text-xl font-bold mb-4 text-primary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        Apostilas para estudar
+                    </h2>
+                    <div class="bg-white p-5 rounded-xl shadow-sm">
+                        <div class="mb-6 bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
+                            <p class="mb-0">Apostilas para estudar para as provas do Ensino Fundamental e do Ensino Médio. Acesse o link abaixo e faça o download:</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-gray-100 p-4 rounded-lg flex flex-col items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                                </svg>
+                                <p class="text-center font-medium">Ensino Fundamental</p>
+                            </div>
+                            <div class="bg-gray-100 p-4 rounded-lg flex flex-col items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-secondary mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                                </svg>
+                                <p class="text-center font-medium">Ensino Médio</p>
+                            </div>
+                        </div>
+                        
+                        <a href="https://neejabento.wixsite.com/neeja/material" target="_blank" class="block btn-primary text-white py-3 px-4 rounded-xl text-center shadow-md">
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                Acessar Material de Estudo
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 6. Certificado -->
+                <div id="certificado" class="content-section hidden">
+                    <h2 class="text-xl font-bold mb-4 text-primary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                        </svg>
+                        Certificado de Conclusão
+                    </h2>
+                    <div class="bg-white p-5 rounded-xl shadow-sm">
+                        <div class="mb-6 bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
+                            <p class="mb-3 font-medium">Para solicitar o Certificado de Conclusão de curso é necessário:</p>
+                            
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Ter concluído o Ensino Fundamental se desejar o Certificado de Conclusão de Ensino Fundamental</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Ter concluído o Ensino Médio se desejar o Certificado de Conclusão de Ensino Médio</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Solicitar no mínimo com 72 horas úteis de antecedência</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-secondary/10 p-5 rounded-lg mb-6">
+                            <h3 class="font-semibold mb-3 text-secondary flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                Como solicitar:
+                            </h3>
+                            <p class="mb-2">Enviar e-mail para: 
+                                <a href="mailto:secretarianeeja2019@gmail.com" class="text-secondary font-medium hover:underline">
+                                    secretarianeeja2019@gmail.com
+                                </a>
+                            </p>
+                            <p class="mb-3 font-medium">Assunto: Solicitação de Certificado de conclusão em PDF de (nome do aluno)</p>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                <p class="mb-2 font-medium">No texto do e-mail:</p>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li>Nome do Aluno: xxxxxxxxxxxxx</li>
+                                    <li>Nº do RG: 00000000000</li>
+                                    <li>Nº do CPF: 000.000.000-00</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <a href="https://neejabento.wixsite.com/neeja/about-6" target="_blank" class="block mt-6 btn-primary text-white py-3 px-4 rounded-xl text-center shadow-md">
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                                Mais informações no site oficial
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 7. Calendário -->
+                <div id="calendario" class="content-section hidden">
+                    <h2 class="text-xl font-bold mb-4 text-primary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Calendário de Provas
+                    </h2>
+                    <div class="bg-white p-5 rounded-xl shadow-sm">
+                        <div class="mb-6 bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
+                            <p class="mb-0">Para consultar o calendário atualizado com as datas das provas, visite o site oficial do NEEJACP Metamorfose:</p>
+                        </div>
+                        
+                        <div class="bg-gray-100 p-6 rounded-lg mb-6 flex flex-col items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-primary mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <p class="text-center text-gray-600 mb-2">Calendário de Provas</p>
+                            <p class="text-center text-gray-500 text-sm">Consulte as datas atualizadas</p>
+                        </div>
+                        
+                        <a href="https://neejabento.wixsite.com/neeja" target="_blank" class="block btn-primary text-white py-3 px-4 rounded-xl text-center shadow-md">
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                Ver Calendário de Provas
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 8. Localização -->
+                <div id="localizacao" class="content-section hidden">
+                    <h2 class="text-xl font-bold mb-4 text-primary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Localização
+                    </h2>
+                    <div class="bg-white p-5 rounded-xl shadow-sm">
+                        <div class="mb-6">
+                            <div class="bg-gray-100 p-6 rounded-lg mb-4 h-48 flex items-center justify-center">
+                                <div class="text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-primary mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <p class="text-gray-600">NEEJACP Metamorfose</p>
+                                    <p class="text-gray-500 text-sm">Bento Gonçalves</p>
+                                </div>
+                            </div>
+                            <p class="text-center text-sm text-gray-600 mb-4 bg-gray-50 p-3 rounded-lg">
+                                Para visualizar o mapa completo e obter direções, acesse o site oficial
+                            </p>
+                        </div>
+                        
+                        <a href="https://neejabento.wixsite.com/neeja" target="_blank" class="block btn-primary text-white py-3 px-4 rounded-xl text-center shadow-md">
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                Ver Localização no Site
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 9. Lista de aprovados -->
+                <div id="aprovados" class="content-section hidden">
+                    <h2 class="text-xl font-bold mb-4 text-primary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Lista de Aprovados
+                    </h2>
+                    <div class="bg-white p-5 rounded-xl shadow-sm">
+                        <div class="mb-6 bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
+                            <p class="mb-0">Para consultar a lista atualizada de aprovados, visite o site oficial do NEEJACP Metamorfose:</p>
+                        </div>
+                        
+                        <div class="bg-gray-100 p-6 rounded-lg mb-6 flex flex-col items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-primary mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                            </svg>
+                            <p class="text-center text-gray-600 mb-2">Lista de Aprovados</p>
+                            <p class="text-center text-gray-500 text-sm">Resultados atualizados</p>
+                        </div>
+                        
+                        <a href="https://neejabento.wixsite.com/neeja" target="_blank" class="block btn-primary text-white py-3 px-4 rounded-xl text-center shadow-md">
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Ver Lista de Aprovados
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 10. Aulas tira dúvidas -->
+                <div id="aulas" class="content-section hidden">
+                    <h2 class="text-xl font-bold mb-4 text-primary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                        </svg>
+                        Aulas Tira Dúvidas
+                    </h2>
+                    <div class="bg-white p-5 rounded-xl shadow-sm">
+                        <div class="mb-6 bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
+                            <p class="mb-0">Para informações sobre as aulas tira dúvidas, horários e disponibilidade, visite o site oficial do NEEJACP Metamorfose:</p>
+                        </div>
+                        
+                        <div class="bg-gray-100 p-6 rounded-lg mb-6 flex flex-col items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-primary mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                            </svg>
+                            <p class="text-center text-gray-600 mb-2">Aulas Tira Dúvidas</p>
+                            <p class="text-center text-gray-500 text-sm">Horários e disciplinas</p>
+                        </div>
+                        
+                        <a href="https://neejabento.wixsite.com/neeja" target="_blank" class="block btn-primary text-white py-3 px-4 rounded-xl text-center shadow-md">
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                                Informações sobre Aulas
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="p-4 bg-gradient-to-r from-primary/5 to-secondary/5 text-center text-gray-600 text-sm">
+            <p>© 2023 NEEJACP Metamorfose - Bento Gonçalves</p>
+        </footer>
+
+        <!-- Back to Top Button -->
+        <button class="back-to-top bg-primary text-white p-2 rounded-full shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24```
